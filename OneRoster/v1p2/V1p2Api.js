@@ -3,7 +3,6 @@ import {OneRoster} from '../OneRoster'
 
 export class V1p2Api{
     constructor(baseUrl, clientId, clientSecret){
-        this.tokenUrl = tokenUrl
         this.baseUrl = baseUrl
         this.clientId = clientId
         this.clientSecret = clientSecret

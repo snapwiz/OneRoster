@@ -6,7 +6,7 @@ export class OneRosterApi {
     v1p1(baseUrl, consumerKey, consumerSecret) {
         return new V1p1Api(baseUrl,consumerKey,consumerSecret);
     }
-    v1p2(tokenUrl, baseUrl, clientId, clientSecret) {
-        return new V1p2Api(tokenUrl, baseUrl, clientId, clientSecret);
+    v1p2(baseUrl, clientId, clientSecret) {
+        return new V1p2Api(baseUrl, clientId, clientSecret);
     }
 }
