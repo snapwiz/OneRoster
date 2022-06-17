@@ -2,135 +2,135 @@ export class SchoolsMangement{
     constructor(oneRosterApi){
         this.oneRosterApi = oneRosterApi
     }
-    GetAllSchools(cb) {
+    getAllSchools(cb) {
         let resource = `/schools/`
         return this.oneRosterApi.makeRosterRequest(resource, cb)
     }
-    GetAllSchoolsRaw(cb) {
+    getAllSchoolsRaw(cb) {
         let resource = `/schools/`
         return this.oneRosterApi.makeRosterRequest(resource, cb)
     }
-    GetAllSchoolsAsync(cb) {
+    getAllSchoolsAsync(cb) {
         let resource = `/schools/`
         return this.oneRosterApi.makeRosterRequest(resource, cb)
     }
-    // GetSchool(cb) {
+    // getSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetSchoolRaw(cb) {
+    // getSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetSchoolAsync(cb) {
+    // getSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetClassesForSchool(cb) {
+    // getClassesForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetClassesForSchoolRaw(cb) {
+    // getClassesForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetClassesForSchoolAsync(cb) {
+    // getClassesForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForClassInSchool(cb) {
+    // getEnrollmentsForClassInSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForClassInSchoolRaw(cb) {
+    // getEnrollmentsForClassInSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForClassInSchoolAsync(cb) {
+    // getEnrollmentsForClassInSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForClassInSchool(cb) {
+    // getStudentsForClassInSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForClassInSchoolRaw(cb) {
+    // getStudentsForClassInSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForClassInSchoolAsync(cb) {
+    // getStudentsForClassInSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForClassInSchool(cb) {
+    // getTeachersForClassInSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForClassInSchoolRaw(cb) {
+    // getTeachersForClassInSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForClassInSchoolAsync(cb) {
+    // getTeachersForClassInSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetCoursesForSchool(cb) {
+    // getCoursesForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetCoursesForSchoolRaw(cb) {
+    // getCoursesForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetCoursesForSchoolAsync(cb) {
+    // getCoursesForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForSchool(cb) {
+    // getEnrollmentsForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForSchoolRaw(cb) {
+    // getEnrollmentsForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetEnrollmentsForSchoolAsync(cb) {
+    // getEnrollmentsForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForSchool(cb) {
+    // getStudentsForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForSchoolRaw(cb) {
+    // getStudentsForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetStudentsForSchoolAsync(cb) {
+    // getStudentsForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForSchool(cb) {
+    // getTeachersForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForSchoolRaw(cb) {
+    // getTeachersForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTeachersForSchoolAsync(cb) {
+    // getTeachersForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTermsForSchool(cb) {
+    // getTermsForSchool(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTermsForSchoolRaw(cb) {
+    // getTermsForSchoolRaw(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }
-    // GetTermsForSchoolAsync(cb) {
+    // getTermsForSchoolAsync(cb) {
     //     let resource = `/schools/`
     //     return this.oneRosterApi.makeRosterRequest(resource, cb)
     // }

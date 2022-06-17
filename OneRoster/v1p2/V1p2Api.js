@@ -2,7 +2,7 @@ import {SchoolsMangement} from './SchoolsManagement'
 import {OneRoster} from '../OneRoster'
 
 export class V1p2Api{
-    constructor(tokenUrl, baseUrl, clientId, clientSecret){
+    constructor(baseUrl, clientId, clientSecret){
         this.tokenUrl = tokenUrl
         this.baseUrl = baseUrl
         this.clientId = clientId
