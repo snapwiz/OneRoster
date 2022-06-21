@@ -2,9 +2,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 import OneRosterApi from "./OneRoster/OneRosterApi.js";
 
 // TODO: access baseUrl, clientId, clientSecret from config file
-const baseUrl = 'https://edulastic-vn-v2.oneroster.com/ims/oneroster/v1p1'
-const clientId = '05f7b9467647b6357892bd07' // consumerKey
-const clientSecret = '2801e896353e9c2d81d91568' // consumerSecret
+const baseUrl = process.env.BASE_URL
+const clientId = process.env.CONSUMER_KEY // consumerKey
+const clientSecret = process.env.CONSUMER_SECRET // consumerSecret
 
 const oneRosterApiObj = new OneRosterApi()
 
