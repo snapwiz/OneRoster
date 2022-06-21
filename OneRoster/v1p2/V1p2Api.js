@@ -1,5 +1,5 @@
-import {SchoolsMangement} from './SchoolsManagement'
-import {OneRoster} from '../OneRoster'
+import {SchoolsMangement} from './SchoolsManagement.js'
+import OneRoster from '../OneRoster.js'
 
 export class V1p2Api{
     constructor(baseUrl, clientId, clientSecret){

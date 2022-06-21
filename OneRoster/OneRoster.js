@@ -1,5 +1,7 @@
-const CryptoJs = require('crypto-js');
-const request = require('request');
+import CryptoJs from 'crypto-js'
+import request from 'request'
+import { promisify } from 'util'
+const rp = promisify(request)
 
 /**
  * Key and secret for the request
@@ -19,7 +21,7 @@ function OneRoster(baseUrl, clientId, clientSecret) {
  * @param {*} callback   The callback to be executed after the requesta
  */
 OneRoster.prototype.makeRosterRequest = function(pathUrl, callback) {
-    const url = baseUrl + pathUrl
+    const url = this.baseUrl + pathUrl
     // Generate timestamp and nonce
     let timestamp = time().toString();
     let nonce = generateNonce(timestamp.length);
@@ -54,7 +56,7 @@ OneRoster.prototype.makeRosterRequest = function(pathUrl, callback) {
     // Generate header and make request
     let authHeader = buildAuthorizationHeader(oauth);
 
-    makeRequest(authHeader, urlPieces[0], query, callback);
+    return makeRequest(authHeader, urlPieces[0], query, callback);
 };
 
 /**
@@ -64,7 +66,7 @@ OneRoster.prototype.makeRosterRequest = function(pathUrl, callback) {
  */
 let buildAuthorizationHeader = function(oauthInfo) {
     let result = 'OAuth ';
-    values = [];
+    let values = [];
     for (let key in oauthInfo) {
         values.push(key + '="' + encodeURIComponent(oauthInfo[key]) + '"');
     }
@@ -159,13 +161,7 @@ let makeRequest = function(authHeader, url, urlParams, callback) {
         { 'Authorization':  authHeader}
     };
 
-    return request(options, function (error, response, body) {
-        if (error) {
-            callback(error, 0, body);
-        } else {
-            callback(error, response.statusCode, body);
-        }
-    });
+    return rp(options);
 };
 
-module.exports = OneRoster;
+export default OneRoster;
