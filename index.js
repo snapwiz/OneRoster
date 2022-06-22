@@ -23,7 +23,7 @@ const oneRosterApiObj = new OneRosterApi()
 
 // using v1p2
 const v1p2Obj = oneRosterApiObj.v1p2(baseUrl, clientId, clientSecret)
-const result2 = await v1p2Obj.schoolsMangement.getAllSchools(callBackFunc)
+const result2 = await v1p2Obj.schoolsMangement.getAllSchools()
 console.log(result2.statusCode)
 
 
