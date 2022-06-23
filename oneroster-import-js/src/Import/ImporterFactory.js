@@ -31,8 +31,8 @@ export default class ImporterFactory {
         if (!this.#types[type]) {
             throw new Error(`${type} not supported by FactoryImporter`)
         }
-        let pathtoSchemaJson = __dirname + '/../../config' + this.#version + '/' + this.#types[type]
-        let schema = JSON.parse(this.#fileHandler.getContents(pathtoSchemaJson))
+        let pathToSchemaJson = __dirname + '/../../config' + this.#version + '/' + this.#types[type]
+        let schema = JSON.parse(this.#fileHandler.getContents(pathToSchemaJson))
 
         return new Importer(new Validator(schema))
     }

@@ -50,7 +50,7 @@ export default class ImportService {
 
         let availableTypes = this.detectAvailableTypes(pathtoFolder)
         availableTypes.forEach(availableType => {
-            results[availableType] = this.import(pathtoFolder, availableType, '.csv', availableType, this.#options)
+            results[availableType] = this.import(`${pathtoFolder}${availableType}.csv`, availableType, this.#options)
         })
         return results
     }
@@ -66,7 +66,7 @@ export default class ImportService {
     detectAvailableTypes(pathToFolder) {
         let types = {}
         index = 0;
-        let result = this.import(pathToFolder, 'manifest.csv', 'manifest', this.#options)
+        let result = this.import(`${pathToFolder}manifest.csv`, 'manifest', this.#options)
         result.forEach(row => {
             let property = row['propertyName']
             let value = row['value']
