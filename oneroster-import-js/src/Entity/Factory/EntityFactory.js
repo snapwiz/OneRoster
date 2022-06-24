@@ -1,22 +1,22 @@
-import { isEmpty } from "lodash"
+import _ from "lodash"
 
 export default class EntityFactory {
     constructor() {}
 
     static createCollection(entityName, storage, relationConfig, inResults = null){
-        if(!this.classExists(entityName))  {
+        if(typeof entityName === 'function' && !this.prototype.classExists(entityName.name))  {
             throw new Error(`${entityName} not a valid class`)
         }
 
         let obj = new entityName()
-        if (!(obj instanceof EntityInterface)) {
-            throw new Error(`${entityName}: invalid Entity Provided`)
-        }
+        // if (!(obj instanceof EntityInterface)) {
+        //     throw new Error(`${entityName}: invalid Entity Provided`)
+        // }
 
         let allObjs = {}
         let allResults = []
-        if(isEmpty(inResults)) {
-            allResults = storage.findByType(obj.getType())
+        if(_.isEmpty(inResults)) {
+            allResults = storage.findByType(obj.constructor.getType())
         } else {
             allResults = inResults
         }
@@ -41,9 +41,9 @@ export default class EntityFactory {
         }
 
         let obj = new entityName()
-        if (!(obj instanceof EntityInterface)) {
-            throw new Error(`${entityName}: invalid Entity Provided`)
-        }
+        // if (!(obj instanceof EntityInterface)) {
+        //     throw new Error(`${entityName}: invalid Entity Provided`)
+        // }
 
         objNew.setId(id)
         objNew.setStorage(storage)
@@ -53,8 +53,10 @@ export default class EntityFactory {
     }
 
     classExists(className) {
-        const ExistingClasses = []
-        if(ExistingClasses.indexOf(className) !== -1) {
+        const ExistingEntityClasses = [
+            'AbstractEntity', 'AcademicSession', 'Category', 'ClassResource', 'ClassRoom', 'Course', 'CourseResource', 'Demographic', 'Enrollment', 'LineItem', 'Organisation', 'Resource', 'Result', 'User'
+        ]
+        if(ExistingEntityClasses.indexOf(className) !== -1) {
             return true
         }
         return false

@@ -1,4 +1,4 @@
-import EntityFactory from "./Factory/EntityFactory"
+import EntityFactory from "./Factory/EntityFactory.js"
 
 export default class EntityRepository
 {

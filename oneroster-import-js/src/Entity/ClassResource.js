@@ -1,5 +1,6 @@
-import ClassRoom from './ClassRoom'
-import Resource from './Resource'
+import AbstractEntity from "./AbstractEntity.js"
+import ClassRoom from './ClassRoom.js'
+import Resource from './Resource.js'
 
 export default class ClassResource extends AbstractEntity
 {

@@ -1,8 +1,11 @@
-import {isEmpty} from 'lodash'
-
-import RequiredException from './RequiredException'
+import _ from 'lodash'
+import moment from 'moment'
+import FormatException from './FormatException.js'
+import RequiredException from './RequiredException.js'
 
 export default class Validator{
+    #DATE_FORMAT = 'YYYY-MM-DD'
+    #DATE_TIME_FORMAT = 'YYYY-MM-DD HH:MM:SS'
     #schema
     constructor(schema){
         this.#schema = schema
@@ -14,7 +17,7 @@ export default class Validator{
     validateRequiredFields(dataRow) {
         const requiredFields = this.extractRequiresFields()
         requiredFields.forEach(requiredField => {
-            if(isEmpty(dataRow[requiredField])) {
+            if(_.isEmpty(dataRow[requiredField])) {
                 throw new RequiredException(requiredField)
             }
         })
@@ -22,8 +25,8 @@ export default class Validator{
     validateFormat(dataRow) {
         this.#schema?.forEach(itemSchema => {
             const columnIdentifier = itemSchema['columnId']
-            if(isEmpty(dataRow[columnIdentifier])) {
-                continue
+            if(_.isEmpty(dataRow[columnIdentifier])) {
+                return
             }
             const format = itemSchema['format']
             let value = dataRow[columnIdentifier]
@@ -34,8 +37,10 @@ export default class Validator{
 
             if(format === 'date' || date === 'datetime') {
                 let dateFormat = format === 'datetime'? this.#DATE_FORMAT : this.#DATE_TIME_FORMAT
-                value = new Date()
-                // TODO: moment or some different library
+                value = moment(new Date(value)).format(dateFormat)
+                if (!value && this.isFieldRequired(columnIdentifier)) {
+                    throw FormatException(columnIdentifier, format, typeof value)
+                }
             } else {
                 if(typeof value !== format && this.isFieldRequired(columnIdentifier)) {
                     throw new FormatException(columnIdentifier, format, typeof value)

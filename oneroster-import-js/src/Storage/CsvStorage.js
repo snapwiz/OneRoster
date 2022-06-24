@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash"
+import _ from "lodash"
 
 export default class CsvStorage {
     #importService
@@ -9,7 +9,7 @@ export default class CsvStorage {
     }
 
     findByType(typeOfEntity) {
-        if(!isEmpty(this.#imports[typeOfEntity])) {
+        if(!_.isEmpty(this.#imports[typeOfEntity])) {
             return this.#imports[typeOfEntity]
         }
         this.#imports[typeOfEntity] = this.#importService.import(`${this.#importService.getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity)
@@ -17,11 +17,11 @@ export default class CsvStorage {
     }
 
     findByTypeAndId(typeOfEntity, id) {
-        if(!isEmpty(this.#imports[typeOfEntity])) {
+        if(!_.isEmpty(this.#imports[typeOfEntity])) {
             return this.#imports[typeOfEntity][id]
         }
 
-        if(isEmpty(this.#imports[typeOfEntity])) {
+        if(_.isEmpty(this.#imports[typeOfEntity])) {
             this.#imports[typeOfEntity] = this.#importService.import(`${this.#importService.getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity)
         }
 

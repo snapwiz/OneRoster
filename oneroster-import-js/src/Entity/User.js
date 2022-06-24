@@ -1,3 +1,8 @@
+import AbstractEntity from "./AbstractEntity.js"
+import Organisation from "./Organisation.js"
+import Demographic from "./Demographic.js"
+import Enrollment from "./Enrollment.js"
+
 export default class User extends AbstractEntity
 {
     getOrgs()

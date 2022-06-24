@@ -13,9 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "crypto-js": "^4.1.1",
-    "request": "^2.88.2",
     "get-line": "^0.1.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "request": "^2.88.2"
   },
   "type": "module"
 }

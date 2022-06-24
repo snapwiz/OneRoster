@@ -1,4 +1,4 @@
-import EntityFactory from "./Factory/EntityFactory";
+import EntityFactory from "./Factory/EntityFactory.js";
 
 export default class AbstractEntity {
     #id
@@ -7,7 +7,7 @@ export default class AbstractEntity {
 
     constructor() {
         if(this.constructor == AbstractEntity){
-        throw new Error(" bject of Abstract Class cannot be created");
+        throw new Error("Object of Abstract Class cannot be created");
         }
     }
 

@@ -1,3 +1,7 @@
+import AbstractEntity from "./AbstractEntity.js"
+import ClassRoom from "./ClassRoom.js";
+import User from "./User.js";
+import Enrollment from "./Enrollment.js";
 export default class Organisation extends AbstractEntity
 {
     getClasses()

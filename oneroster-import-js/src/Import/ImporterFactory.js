@@ -1,5 +1,6 @@
-import Validator from "../Schema/Validator"
-import Importer from "./Importer"
+import path from 'path'
+import Validator from "../Schema/Validator.js"
+import Importer from "./Importer.js"
 
 export default class ImporterFactory {
     #version
@@ -31,8 +32,9 @@ export default class ImporterFactory {
         if (!this.#types[type]) {
             throw new Error(`${type} not supported by FactoryImporter`)
         }
-        let pathToSchemaJson = __dirname + '/../../config' + this.#version + '/' + this.#types[type]
-        let schema = JSON.parse(this.#fileHandler.getContents(pathToSchemaJson))
+        const __dirname = path.resolve()
+        const pathToSchemaJson = __dirname + '/oneroster-import-js/config/' + this.#version + '/' + this.#types[type]
+        const schema = JSON.parse(this.#fileHandler.getContents(pathToSchemaJson))
 
         return new Importer(new Validator(schema))
     }

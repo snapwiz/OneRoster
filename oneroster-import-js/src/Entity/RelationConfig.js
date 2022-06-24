@@ -1,7 +1,6 @@
-import { isEmpty } from "lodash";
+import _ from "lodash";
 
-export default class RelationConfig
-{
+export default class RelationConfig {
     #dataConfig
 
     constructor(dataConfig)
@@ -20,8 +19,8 @@ export default class RelationConfig
     {
         let value = data[parts[index]]
 
-        if (!isEmpty(parts[index+1])) {
-            if (isEmpty(value[parts[index+1]])){
+        if (!_.isEmpty(parts[index+1])) {
+            if (_.isEmpty(value[parts[index+1]])){
                 return null;
             }
             parts[index] = null

@@ -1,33 +1,33 @@
-import { isEmpty } from "lodash";
-import FileHandler from "../File/FileHandler";
-import ImporterFactory from "../Import/ImporterFactory";
-
+import _ from "lodash";
+import ImporterFactory from "../Import/ImporterFactory.js";
 export default class ImportService {
-    #options = {
-        version : 'v1.1',
-        csvControl : {
-            delimiter : ',',
-            enclosure : '"',
-            escape : '\\',
-        }
-    }
+    options
 
     #fileHandler
     #pathToFolder
 
     constructor(fileHandler) {
+        this.options = {
+            version : 'v1.1',
+            csvControl : {
+                delimiter : ',',
+                enclosure : '"',
+                escape : '\\',
+            }
+        }
         this.#fileHandler = fileHandler
     }
 
-    import(file, type, options = {}) {
-        this.#options = { ...this.#options, ...options }
+    async import(file, type, options = {}) {
+        let temp = this.options
+        this.options = { ...temp, ...options }
         this.validateOptions()
-        let importer = (new ImporterFactory(this.#options['version'], this.#fileHandler)).build(type)
-        let fileResource = this.#fileHandler.open(file)
+        let importer = (new ImporterFactory(this.options['version'], this.#fileHandler)).build(type)
+        let fileResource = await this.#fileHandler.open(file)
 
         let lines = []
         let header = []
-        const {delimiter, enclosure, escape} = this.#options['csvControl']
+        const {delimiter, enclosure, escape} = this.options['csvControl']
         let index = 0
         let line = this.#fileHandler.readCsvLine(fileResource, index, delimiter, enclosure, escape)
         while(!isEmpty(line)) {
@@ -43,20 +43,20 @@ export default class ImportService {
         return result
     }
 
-    importMultiple(pathtoFolder, options = {}) {
-        this.#options = { ...this.#options, ...options }
+    importMultiple(pathToFolder, options = {}) {
+        this.options = { ...this.options, ...options }
         this.validateOptions()
         let results = {}
 
-        let availableTypes = this.detectAvailableTypes(pathtoFolder)
+        let availableTypes = this.detectAvailableTypes(pathToFolder)
         availableTypes.forEach(availableType => {
-            results[availableType] = this.import(`${pathtoFolder}${availableType}.csv`, availableType, this.#options)
+            results[availableType] = this.import(`${pathToFolder}${availableType}.csv`, availableType, this.options)
         })
         return results
     }
 
-    getPathtoFolder() {
-        return this.#pathtoFolder
+    getPathToFolder() {
+        return this.#pathToFolder
     }
 
     setPathToFolder(pathToFolder) {
@@ -66,7 +66,7 @@ export default class ImportService {
     detectAvailableTypes(pathToFolder) {
         let types = {}
         index = 0;
-        let result = this.import(`${pathToFolder}manifest.csv`, 'manifest', this.#options)
+        let result = this.import(`${pathToFolder}manifest.csv`, 'manifest', this.options)
         result.forEach(row => {
             let property = row['propertyName']
             let value = row['value']
@@ -82,11 +82,11 @@ export default class ImportService {
 
     validateOptions()
     {
-        if (isEmpty(this.#options['version'])) {
+        if (_.isEmpty(this.options['version'])) {
             throw new Error('Version should be specified as option');
         }
 
-        if (isEmpty(this.#options['csvControl'])) {
+        if (_.isEmpty(this.options['csvControl'])) {
             throw new Error('csvControl should be specified as option');
         }
     }
