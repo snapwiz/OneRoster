@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "crypto-js": "^4.1.1",
-    "get-line": "^0.1.2",
+    "csv-parse": "^5.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "request": "^2.88.2"

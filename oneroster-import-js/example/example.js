@@ -13,15 +13,18 @@ const relationConfig = (new RelationConfigFactory(fileHandler)).create()
 const entityRepository = new EntityRepository(storage, relationConfig)
 
 // get all organisation
-const orgs = entityRepository.getAll(Organisation)
-
-// get one organisation
-const org = entityRepository.get('user1', User)
-console.log(org)
+const orgs = await entityRepository.getAll(Organisation)
+console.log(orgs)
 
 //get one class
-const _class = entityRepository.get('class1', ClassRoom)
+const _classes = await entityRepository.getAll(ClassRoom)
+console.log(_classes)
+
+const _class = await entityRepository.get('class1', ClassRoom)
 console.log(_class)
+const academicSessions = await _class.getOrg()
+console.log(academicSessions)
 
 //get relations
-console.log(_class.getEnrollments());
+const enrollments = await _class.getEnrollments()
+console.log(enrollments)

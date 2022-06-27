@@ -1,32 +1,37 @@
 import fs from "fs"
-import getLine from "get-line";
-
+import {parse} from "csv-parse"
 export default class FileHandler{
     constructor(){}
     async open(filePath, mode = 'r'){
-        let isFileReadable = await fs.promises.access(file, fs.constants.R_OK)
+        let isFileReadable = false
+        try{
+            await fs.promises.access(filePath, fs.constants.R_OK)
+            isFileReadable = true
+        } catch(e) {
+        }
         const filePathExists = fs.existsSync(filePath)
-        const fileHandler = fs.open(filePath, mode)
-        // const fileHandler = fs.createReadStream(filePath, {
-        //     flag: mode,
-        //     encoding: 'UTF-8',
-        // })
+        const fileHandler = fs.createReadStream(filePath, {
+            flag: mode,
+            encoding: 'UTF-8',
+        })
         if (!filePathExists || !isFileReadable || !fileHandler) {
-            // throw exception
+            throw new Error('File to import cannot be loaded.')
         }
         return fileHandler
     }
-    async getContents(fileName){
+    getContents(fileName){
         var fileContent = fs.readFileSync(fileName,'utf8') 
         return fileContent
     }
 
-    async readCsvLine(handle, length = 0, delimiter = ',', enclosure = '"', escape = '\\') {
-        // TODO: Find some alternative for this getLine package
-        const getLine = getLine({lines: [0, length], encoding: 'utf8', newline: '\n'});
-
-
-        // TODO
-        return handle.pipe(getLine)
+    async readCsvLines(handle, length = 0, delimiter = ',', enclosure = '"', escape = '\\') {
+        const parsedFileLines = []
+        return new Promise((resolve, reject) => handle.pipe(parse({ delimiter: ",", escape, enclosure})).on('data', (data) => {
+            parsedFileLines.push(data)
+        })
+        .on('end', () => {
+            resolve(parsedFileLines)
+        }))
     }
 }
+

@@ -11,12 +11,12 @@ export default class EntityRepository
         this.#relationConfig = relationConfig
     }
 
-    get(id, entityName)
+    async get(id, entityName)
     {
         return EntityFactory.create(id, entityName, this.#storage, this.#relationConfig)
     }
 
-    getAll(entityName)
+    async getAll(entityName)
     {
         return EntityFactory.createCollection(entityName, this.#storage, this.#relationConfig)
     }

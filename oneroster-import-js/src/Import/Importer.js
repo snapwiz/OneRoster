@@ -16,7 +16,7 @@ export default class Importer {
                 rowWithHeader[header[i]] = row[i]
             }
             rowWithHeader = this.#schemaValidator.validate(rowWithHeader)
-            if (!_.isEmpty(rowWithHeader['sourcedId'])) {
+            if (!_.isEmpty(rowWithHeader?.['sourcedId'])) {
                 if (rowWithHeader['sourcedId'] in result === true) {
                     throw new NotUniqueEntityException(rowWithHeader['sourcedId'])
                 }

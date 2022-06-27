@@ -23,6 +23,7 @@ export default class Validator{
         })
     }
     validateFormat(dataRow) {
+        let _dataRow = {}
         this.#schema?.forEach(itemSchema => {
             const columnIdentifier = itemSchema['columnId']
             if(_.isEmpty(dataRow[columnIdentifier])) {
@@ -35,7 +36,7 @@ export default class Validator{
                 value = !!value
             }
 
-            if(format === 'date' || date === 'datetime') {
+            if(format === 'date' || format === 'datetime') {
                 let dateFormat = format === 'datetime'? this.#DATE_FORMAT : this.#DATE_TIME_FORMAT
                 value = moment(new Date(value)).format(dateFormat)
                 if (!value && this.isFieldRequired(columnIdentifier)) {
@@ -47,8 +48,9 @@ export default class Validator{
                 }
             }
 
-            dataRow[columnIdentifier] = value
+            _dataRow[columnIdentifier] = value
         })
+        return _dataRow
     }
 
     extractRequiresFields() {

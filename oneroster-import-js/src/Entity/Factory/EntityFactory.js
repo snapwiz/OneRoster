@@ -3,60 +3,54 @@ import _ from "lodash"
 export default class EntityFactory {
     constructor() {}
 
-    static createCollection(entityName, storage, relationConfig, inResults = null){
-        if(typeof entityName === 'function' && !this.prototype.classExists(entityName.name))  {
+    static async createCollection(entityName, storage, relationConfig, inResults = null){
+        if(typeof entityName === 'function' && !this.prototype.classExists(entityName))  {
             throw new Error(`${entityName} not a valid class`)
         }
 
         let obj = new entityName()
-        // if (!(obj instanceof EntityInterface)) {
-        //     throw new Error(`${entityName}: invalid Entity Provided`)
-        // }
 
         let allObjs = {}
         let allResults = []
         if(_.isEmpty(inResults)) {
-            allResults = storage.findByType(obj.constructor.getType())
+            allResults = await storage.findByType(obj.constructor.getType())
         } else {
             allResults = inResults
         }
 
         let index = 0
-        allResults.forEach(result => {
-            let id = result['sourceId']
+        for(const key in allResults) {
+            let id = allResults[key]['sourcedId']
             let objNew = new entityName()
             objNew.setId(id)
             objNew.setStorage(storage)
             objNew.setRelationConfig(relationConfig)
 
             allObjs[index++] = objNew
-        })
+        }
 
         return allObjs
     }
 
     static create(id, entityName, storage, relationConfig) {
-        if(!this.classExists(entityName))  {
+        if(!this.prototype.classExists(entityName))  {
             throw new Error(`${entityName} not a valid class`)
         }
 
         let obj = new entityName()
-        // if (!(obj instanceof EntityInterface)) {
-        //     throw new Error(`${entityName}: invalid Entity Provided`)
-        // }
 
-        objNew.setId(id)
-        objNew.setStorage(storage)
-        objNew.setRelationConfig(relationConfig)
+        obj.setId(id)
+        obj.setStorage(storage)
+        obj.setRelationConfig(relationConfig)
 
         return obj
     }
 
-    classExists(className) {
+    classExists(entityName) {
         const ExistingEntityClasses = [
             'AbstractEntity', 'AcademicSession', 'Category', 'ClassResource', 'ClassRoom', 'Course', 'CourseResource', 'Demographic', 'Enrollment', 'LineItem', 'Organisation', 'Resource', 'Result', 'User'
         ]
-        if(ExistingEntityClasses.indexOf(className) !== -1) {
+        if(ExistingEntityClasses.indexOf(entityName.name) !== -1) {
             return true
         }
         return false

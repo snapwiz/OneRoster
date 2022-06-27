@@ -4,17 +4,17 @@ import Enrollment from "./Enrollment.js";
 import AcademicSession from "./AcademicSession.js";
 export default class ClassRoom extends AbstractEntity
 {
-    getOrg()
+    async getOrg()
     {
         return this.getParentRelationEntity(Organisation);
     }
 
-    getEnrollments()
+    async getEnrollments()
     {
         return this.getChildrenRelationEntities(Enrollment);
     }
 
-    getAcademicSession()
+    async getAcademicSession()
     {
         return this.getParentRelationEntity(AcademicSession)
     }

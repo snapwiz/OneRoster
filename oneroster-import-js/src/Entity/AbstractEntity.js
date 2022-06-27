@@ -16,7 +16,7 @@ export default class AbstractEntity {
     }
 
     getData() {
-        return this.#storage.findByTypeAndId(this.getType(), this.#id)
+        return this.#storage.findByTypeAndId(this.constructor.getType(), this.#id)
     }
 
     setStorage(storage) {
@@ -31,25 +31,34 @@ export default class AbstractEntity {
     setId(id) {
         this.#id = id
     }
-    getChildrenRelationEntities(className, inLineIds = false) {
+    async getChildrenRelationEntities(className, inLineIds = false) {
         let keyType = className.getType()
-        let entities = this.#storage.findByType(keyType)
-        let index = this.#relationConfig.getConfig(`${this.getType()}.relation.${ketType}.index`)
-        const results = entities.map(entity => {
-            if (inLineIds) {
-                return this.#id.includes(entity[index])
-            } else {
-                return this.#id === entity[index]
+        let entities = await this.#storage.findByType(keyType)
+        let index = this.#relationConfig.getConfig(`${this.constructor.getType()}.relations.${keyType}.index`)
+        let results = {}
+        for (const key in entities) {
+            const entity = entities[key]
+            if (inLineIds && this.#id.includes(entity[index])) {
+                results[key] = entity
+            } else if(this.#id === entity[index]) {
+                results[key] = entity
             }
-        })
+        }
+        // const results = Object.values(entities).map(entity => {
+        //     if (inLineIds) {
+        //         return this.#id.includes(entity[index])
+        //     } else {
+        //         return this.#id === entity[index]
+        //     }
+        // })
 
         return EntityFactory.createCollection(className, this.#storage, this.#relationConfig, results)
     }
 
-    getParentRelationEntity(className, inLineIds = false) {
+    async getParentRelationEntity(className, inLineIds = false) {
         let keyType = className.getType()
-        let entities = this.#storage.findByType(keyType)
-        let index = this.#relationConfig.getConfig(`${this.getType()}.relations.${keyType}.index`)
+        let entities = await this.#storage.findByType(keyType)
+        let index = this.#relationConfig.getConfig(`${this.constructor.getType()}.relations.${keyType}.index`)
         let result
         let valueOfId
         if (inLineIds){
