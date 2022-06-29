@@ -39,8 +39,8 @@ export default class Validator{
             if(format === 'date' || format === 'datetime') {
                 let dateFormat = format === 'datetime'? this.#DATE_FORMAT : this.#DATE_TIME_FORMAT
                 value = moment(new Date(value)).format(dateFormat)
-                if (!value && this.isFieldRequired(columnIdentifier)) {
-                    throw FormatException(columnIdentifier, format, typeof value)
+                if (value === 'Invalid date' && this.isFieldRequired(columnIdentifier)) {
+                    throw new FormatException(columnIdentifier, format, typeof value)
                 }
             } else {
                 if(typeof value !== format && this.isFieldRequired(columnIdentifier)) {

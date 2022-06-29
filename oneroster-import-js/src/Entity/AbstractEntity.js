@@ -44,13 +44,6 @@ export default class AbstractEntity {
                 results[key] = entity
             }
         }
-        // const results = Object.values(entities).map(entity => {
-        //     if (inLineIds) {
-        //         return this.#id.includes(entity[index])
-        //     } else {
-        //         return this.#id === entity[index]
-        //     }
-        // })
 
         return EntityFactory.createCollection(className, this.#storage, this.#relationConfig, results)
     }
@@ -59,19 +52,20 @@ export default class AbstractEntity {
         let keyType = className.getType()
         let entities = await this.#storage.findByType(keyType)
         let index = this.#relationConfig.getConfig(`${this.constructor.getType()}.relations.${keyType}.index`)
-        let result
         let valueOfId
         if (inLineIds){
-            valueOfId = this.getData()[index]
-            result = entities.map(entity => {
-                let _valueOfId = valueOfId.split(',')
-                return _valueOfId.indexOf(entity['sourceId']) !== -1
-            })
-
+            let data = await this.getData()
+            valueOfId = data[index]
+            let results = {}
+            for (const key in entities) {
+                const entity = entities[key]
+                if (valueOfId === entity['sourcedId']) {
+                    results[key] = entity
+                }
+            }
             return EntityFactory.createCollection(className, this.#storage, this.#relationConfig, results)
         }
-
-        valueOfId = this.getData()[index]
+        valueOfId = await this.getData()[index]
 
         return EntityFactory.create(valueOfId, className, this.#storage, this.#relationConfig)
     }

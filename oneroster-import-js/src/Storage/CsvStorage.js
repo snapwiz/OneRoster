@@ -26,7 +26,7 @@ export default class CsvStorage {
         }
 
         this.#imports[typeOfEntity].forEach(item => {
-            if(item['sourceId'] === id) {
+            if(item['sourcedId'] === id) {
                 return item
             }
         })

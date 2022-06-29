@@ -12,19 +12,24 @@ const relationConfig = (new RelationConfigFactory(fileHandler)).create()
 
 const entityRepository = new EntityRepository(storage, relationConfig)
 
-// get all organisation
+// const orgs = await entityRepository.getAll(Organisation)
+const users = await entityRepository.getAll(User)
 const orgs = await entityRepository.getAll(Organisation)
-console.log(orgs)
 
-//get one class
-const _classes = await entityRepository.getAll(ClassRoom)
-console.log(_classes)
+const user = await entityRepository.get('user1', User)
+const org = await user.getOrgs()
+console.log(org)
 
-const _class = await entityRepository.get('class1', ClassRoom)
-console.log(_class)
-const academicSessions = await _class.getOrg()
-console.log(academicSessions)
 
-//get relations
-const enrollments = await _class.getEnrollments()
-console.log(enrollments)
+const convertData = async (entityObjects) => {
+    let result = []
+    for(const key in entityObjects) {
+        const entityObject = entityObjects[key]
+        const data = await entityObject.getData()
+        result.push(data)
+    }
+    return result
+}
+const data = await convertData(users)
+console.log(data)
+
