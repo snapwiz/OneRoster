@@ -2,9 +2,10 @@
   "name": "oneroster",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel oneroster -d dist",
+    "start": "npm run build && node dist/oneroster-import-js/example/example.js"
   },
   "keywords": [
     "oneroster"
@@ -18,5 +19,9 @@
     "moment": "^2.29.3",
     "request": "^2.88.2"
   },
-  "type": "module"
+  "devDependencies": {
+    "@babel/cli": "^7.18.6",
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6"
+  }
 }

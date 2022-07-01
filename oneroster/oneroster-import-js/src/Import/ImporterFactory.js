@@ -33,7 +33,7 @@ export default class ImporterFactory {
             throw new Error(`${type} not supported by FactoryImporter`)
         }
         const __dirname = path.resolve()
-        const pathToSchemaJson = __dirname + '/oneroster-import-js/config/' + this.#version + '/' + this.#types[type]
+        const pathToSchemaJson = __dirname + '/dist/oneroster-import-js/config/' + this.#version + '/' + this.#types[type]
         const schema = JSON.parse(this.#fileHandler.getContents(pathToSchemaJson))
 
         return new Importer(new Validator(schema))
