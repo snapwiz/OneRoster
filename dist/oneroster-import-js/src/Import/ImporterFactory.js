@@ -83,9 +83,7 @@ class ImporterFactory {
       throw new Error(`${type} not supported by FactoryImporter`);
     }
 
-    const __dirname = _path.default.resolve();
-
-    const pathToSchemaJson = __dirname + '/dist/oneroster-import-js/config/' + _classPrivateFieldGet(this, _version) + '/' + _classPrivateFieldGet(this, _types)[type];
+    const pathToSchemaJson = __dirname + '/../../config/' + _classPrivateFieldGet(this, _version) + '/' + _classPrivateFieldGet(this, _types)[type];
 
     const schema = JSON.parse(_classPrivateFieldGet(this, _fileHandler).getContents(pathToSchemaJson));
     return new _Importer.default(new _Validator.default(schema));

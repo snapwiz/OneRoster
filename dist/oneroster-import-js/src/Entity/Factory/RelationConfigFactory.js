@@ -38,9 +38,8 @@ class RelationConfigFactory {
   }
 
   create() {
-    const __dirname = _path.default.resolve();
-
-    const pathToSchemaJson = __dirname + '/dist/oneroster-import-js/config/v1.1/relations.json';
+    // const __dirname = path.resolve()
+    const pathToSchemaJson = __dirname + '/../../../config/v1.1/relations.json';
 
     const content = _classPrivateFieldGet(this, _fileHandler).getContents(pathToSchemaJson);
 

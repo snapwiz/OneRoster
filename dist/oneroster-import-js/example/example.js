@@ -10,16 +10,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (async () => {
   const fileHandler = new _index.FileHandler();
-  const importService = new _index.ImportService(fileHandler);
-
-  const __dirname = _path.default.resolve(); // const userFilePath = __dirname +  '/dist/oneroster-import-js/data/samples/OneRosterv1p1BaseCSV/users.csv'
+  const importService = new _index.ImportService(fileHandler); // const __dirname = path.resolve()
+  // const userFilePath = __dirname +  '/dist/oneroster-import-js/data/samples/OneRosterv1p1BaseCSV/users.csv'
   // const orgFilePath = __dirname +  '/dist/oneroster-import-js/data/samples/OneRosterv1p1BaseCSV/orgs.csv'
   // let fileStream = fs.createReadStream(userFilePath, {
   //     encoding: 'UTF-8',
   // })
 
-
-  importService.setPathToFolder(__dirname + '/dist/oneroster-import-js/data/samples/OneRosterv1p1BaseCSV/'); // importService.setFileStream(fileStream)
+  importService.setPathToFolder(__dirname + '/../data/samples/OneRosterv1p1BaseCSV/'); // importService.setFileStream(fileStream)
 
   const storage = new _index.CsvStorage(importService);
   const relationConfig = new _index.RelationConfigFactory(fileHandler).create();
