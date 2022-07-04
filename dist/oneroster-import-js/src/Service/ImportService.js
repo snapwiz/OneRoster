@@ -37,6 +37,8 @@ var _fileHandler = /*#__PURE__*/new WeakMap();
 
 var _pathToFolder = /*#__PURE__*/new WeakMap();
 
+var _fileStream = /*#__PURE__*/new WeakMap();
+
 class ImportService {
   constructor(fileHandler) {
     _classPrivateFieldInitSpec(this, _options, {
@@ -54,6 +56,11 @@ class ImportService {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _fileStream, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldSet(this, _options, {
       version: 'v1.1',
       csvControl: {
@@ -66,12 +73,19 @@ class ImportService {
     _classPrivateFieldSet(this, _fileHandler, fileHandler);
   }
 
-  async import(file, type, options = {}) {
+  async import(filePathOrStream, type, options = {}) {
     _classPrivateFieldSet(this, _options, _objectSpread(_objectSpread({}, _classPrivateFieldGet(this, _options)), options));
 
     this.validateOptions();
     let importer = new _ImporterFactory.default(_classPrivateFieldGet(this, _options)['version'], _classPrivateFieldGet(this, _fileHandler)).build(type);
-    let fileResource = await _classPrivateFieldGet(this, _fileHandler).open(file);
+    let fileResource;
+
+    if (_classPrivateFieldGet(this, _pathToFolder)) {
+      fileResource = await _classPrivateFieldGet(this, _fileHandler).open(filePathOrStream);
+    } else {
+      fileResource = filePathOrStream;
+    }
+
     let dataLines = [];
     let header = [];
 
@@ -107,10 +121,14 @@ class ImportService {
 
     this.validateOptions();
     let results = {};
-    let availableTypes = this.detectAvailableTypes(pathToFolder);
-    availableTypes.forEach(async availableType => {
-      results[availableType] = await this.import(`${pathToFolder}${availableType}.csv`, availableType, _classPrivateFieldGet(this, _options));
-    });
+
+    if (_classPrivateFieldGet(this, _pathToFolder)) {
+      let availableTypes = this.detectAvailableTypes(pathToFolder);
+      availableTypes.forEach(async availableType => {
+        results[availableType] = await this.import(`${pathToFolder}${availableType}.csv`, availableType, _classPrivateFieldGet(this, _options));
+      });
+    }
+
     return results;
   }
 
@@ -120,6 +138,14 @@ class ImportService {
 
   setPathToFolder(pathToFolder) {
     _classPrivateFieldSet(this, _pathToFolder, pathToFolder);
+  }
+
+  getFileStream() {
+    return _classPrivateFieldGet(this, _fileStream);
+  }
+
+  setFileStream(stream) {
+    _classPrivateFieldSet(this, _fileStream, stream);
   }
 
   async detectAvailableTypes(pathToFolder) {

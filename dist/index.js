@@ -11,7 +11,7 @@ Object.defineProperty(exports, "OneRosterApi", {
 });
 exports.oneRosterImport = void 0;
 
-var _OneRosterApi = _interopRequireDefault(require("./Oneroster-api/OneRosterApi.js"));
+var _OneRosterApi = _interopRequireDefault(require("./oneroster-api/OneRosterApi.js"));
 
 var oneRosterImport = _interopRequireWildcard(require("./oneroster-import-js/index.js"));
 

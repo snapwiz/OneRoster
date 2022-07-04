@@ -47,7 +47,14 @@ class CsvStorage {
       return _classPrivateFieldGet(this, _imports)[typeOfEntity];
     }
 
-    _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${_classPrivateFieldGet(this, _importService).getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity);
+    let pathToFolder = _classPrivateFieldGet(this, _importService).getPathToFolder();
+
+    if (_lodash.default.isEmpty(pathToFolder)) {
+      _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);
+    } else {
+      _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);
+    }
+
     return _classPrivateFieldGet(this, _imports)[typeOfEntity];
   }
 
@@ -57,7 +64,13 @@ class CsvStorage {
     }
 
     if (_lodash.default.isEmpty(_classPrivateFieldGet(this, _imports)[typeOfEntity])) {
-      _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${_classPrivateFieldGet(this, _importService).getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity);
+      let pathToFolder = _classPrivateFieldGet(this, _importService).getPathToFolder();
+
+      if (_lodash.default.isEmpty(pathToFolder)) {
+        _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);
+      } else {
+        _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);
+      }
     }
 
     _classPrivateFieldGet(this, _imports)[typeOfEntity].forEach(item => {

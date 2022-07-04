@@ -12,7 +12,12 @@ export default class CsvStorage {
         if(!_.isEmpty(this.#imports[typeOfEntity])) {
             return this.#imports[typeOfEntity]
         }
-        this.#imports[typeOfEntity] = await this.#importService.import(`${this.#importService.getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity)
+        let pathToFolder = this.#importService.getPathToFolder()
+        if(_.isEmpty(pathToFolder)) {
+            this.#imports[typeOfEntity] = await this.#importService.import(this.#importService.getFileStream(), typeOfEntity)
+        } else {
+            this.#imports[typeOfEntity] = await this.#importService.import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity)
+        }
         return this.#imports[typeOfEntity]
     }
 
@@ -22,7 +27,12 @@ export default class CsvStorage {
         }
 
         if(_.isEmpty(this.#imports[typeOfEntity])) {
-            this.#imports[typeOfEntity] = await this.#importService.import(`${this.#importService.getPathToFolder()}${typeOfEntity}.csv`, typeOfEntity)
+            let pathToFolder = this.#importService.getPathToFolder()
+            if(_.isEmpty(pathToFolder)) {
+                this.#imports[typeOfEntity] = await this.#importService.import(this.#importService.getFileStream(), typeOfEntity)
+            } else {
+                this.#imports[typeOfEntity] = await this.#importService.import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity)
+            }
         }
 
         this.#imports[typeOfEntity].forEach(item => {

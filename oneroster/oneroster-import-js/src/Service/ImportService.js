@@ -5,6 +5,7 @@ export default class ImportService {
 
     #fileHandler
     #pathToFolder
+    #fileStream
 
     constructor(fileHandler) {
         this.#options = {
@@ -18,11 +19,16 @@ export default class ImportService {
         this.#fileHandler = fileHandler
     }
 
-    async import(file, type, options = {}) {
+    async import(filePathOrStream, type, options = {}) {
         this.#options = { ...this.#options, ...options }
         this.validateOptions()
         let importer = (new ImporterFactory(this.#options['version'], this.#fileHandler)).build(type)
-        let fileResource = await this.#fileHandler.open(file)
+        let fileResource
+        if (this.#pathToFolder) {
+            fileResource = await this.#fileHandler.open(filePathOrStream)
+        } else {
+            fileResource = filePathOrStream
+        }
 
         let dataLines = []
         let header = []
@@ -50,10 +56,12 @@ export default class ImportService {
         this.validateOptions()
         let results = {}
 
-        let availableTypes = this.detectAvailableTypes(pathToFolder)
-        availableTypes.forEach(async availableType => {
-            results[availableType] = await this.import(`${pathToFolder}${availableType}.csv`, availableType, this.#options)
-        })
+        if(this.#pathToFolder) {
+            let availableTypes = this.detectAvailableTypes(pathToFolder)
+            availableTypes.forEach(async availableType => {
+                results[availableType] = await this.import(`${pathToFolder}${availableType}.csv`, availableType, this.#options)
+            })
+        }
         return results
     }
 
@@ -63,6 +71,14 @@ export default class ImportService {
 
     setPathToFolder(pathToFolder) {
         this.#pathToFolder = pathToFolder
+    }
+
+    getFileStream() {
+        return this.#fileStream
+    }
+
+    setFileStream(stream) {
+        this.#fileStream = stream
     }
 
     async detectAvailableTypes(pathToFolder) {
