@@ -51,4 +51,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   console.log(data);
   const orgData = await convertData(orgs);
   console.log(orgData);
+  const terms = await entityRepository.getAll(_index.AcademicSession);
+  console.log(terms);
+  const termData = await convertData(terms);
+  console.log(termData);
+  const classes = await entityRepository.getAll(_index.ClassRoom);
+  const classesData = await convertData(classes);
+  console.log(classesData);
+  const classOrg = await classes[0].getOrg();
+  console.log(classOrg);
+  const classOrgData = await classOrg.getData();
+  console.log(classOrgData);
 })();

@@ -65,7 +65,7 @@ export default class AbstractEntity {
             }
             return EntityFactory.createCollection(className, this.#storage, this.#relationConfig, results)
         }
-        valueOfId = await this.getData()[index]
+        valueOfId = (await this.getData())[index]
 
         return EntityFactory.create(valueOfId, className, this.#storage, this.#relationConfig)
     }

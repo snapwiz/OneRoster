@@ -120,7 +120,7 @@ class AbstractEntity {
       return _EntityFactory.default.createCollection(className, _classPrivateFieldGet(this, _storage), _classPrivateFieldGet(this, _relationConfig), results);
     }
 
-    valueOfId = await this.getData()[index];
+    valueOfId = (await this.getData())[index];
     return _EntityFactory.default.create(valueOfId, className, _classPrivateFieldGet(this, _storage), _classPrivateFieldGet(this, _relationConfig));
   }
 

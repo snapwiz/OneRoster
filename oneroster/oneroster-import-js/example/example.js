@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from "fs"
-import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRepository, Organisation, User, ClassRoom } from "../src/index.js"
+import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRepository, Organisation, User, ClassRoom, AcademicSession } from "../src/index.js"
 
 (async () => {
 
@@ -36,7 +36,6 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     const orgs = await entityRepository.getAll(Organisation)
     console.log(orgs)
 
-
     const convertData = async (entityObjects) => {
         let result = []
         for(const key in entityObjects) {
@@ -50,6 +49,17 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     console.log(data)
     const orgData = await convertData(orgs)
     console.log(orgData)
+    const terms = await entityRepository.getAll(AcademicSession)
+    console.log(terms)
+    const termData = await convertData(terms)
+    console.log(termData)
+    const classes = await entityRepository.getAll(ClassRoom)
+    const classesData = await convertData(classes)
+    console.log(classesData)
+    const classOrg = await classes[0].getOrg()
+    console.log(classOrg)
+    const classOrgData = await classOrg.getData()
+    console.log(classOrgData)
 
 })()
 
