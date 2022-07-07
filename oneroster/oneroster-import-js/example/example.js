@@ -33,8 +33,8 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     //     encoding: 'UTF-8',
     // })
     // importService.setFileStream(fileStream)
-    const orgs = await entityRepository.getAll(Organisation)
-    console.log(orgs)
+    // const orgs = await entityRepository.getAll(Organisation)
+    // console.log(orgs)
 
     const convertData = async (entityObjects) => {
         let result = []
@@ -47,19 +47,23 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     }
     const data = await convertData(users)
     console.log(data)
-    const orgData = await convertData(orgs)
-    console.log(orgData)
-    const terms = await entityRepository.getAll(AcademicSession)
-    console.log(terms)
-    const termData = await convertData(terms)
-    console.log(termData)
-    const classes = await entityRepository.getAll(ClassRoom)
-    const classesData = await convertData(classes)
-    console.log(classesData)
-    const classOrg = await classes[0].getOrg()
-    console.log(classOrg)
-    const classOrgData = await classOrg.getData()
-    console.log(classOrgData)
+    const userDemographicObj = await users[0].getDemographics()
+    const userDemographicData = await convertData(userDemographicObj)
+    console.log({userDemographicData})
+    
+    // const orgData = await convertData(orgs)
+    // console.log(orgData)
+    // const terms = await entityRepository.getAll(AcademicSession)
+    // console.log(terms)
+    // const termData = await convertData(terms)
+    // console.log(termData)
+    // const classes = await entityRepository.getAll(ClassRoom)
+    // const classesData = await convertData(classes)
+    // console.log(classesData)
+    // const classOrg = await classes[0].getOrg()
+    // console.log(classOrg)
+    // const classOrgData = await classOrg.getData()
+    // console.log(classOrgData)
 
 })()
 
