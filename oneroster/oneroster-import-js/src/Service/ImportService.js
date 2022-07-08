@@ -6,6 +6,7 @@ export default class ImportService {
     #fileHandler
     #pathToFolder
     #fileStream
+    #validationErrorLog = ['fileName', 'rowNo', 'sourcedId', 'errorDescription']
 
     constructor(fileHandler) {
         this.#options = {
@@ -47,7 +48,8 @@ export default class ImportService {
             dataLines.push(dataLine)
         }
         }
-        let result = importer.import(header, dataLines)
+        let {result, validationErrors} = importer.import(header, dataLines, type)
+        this.#validationErrorLog = [...this.#validationErrorLog, ...validationErrors]
         return result
     }
 
@@ -79,6 +81,10 @@ export default class ImportService {
 
     setFileStream(stream) {
         this.#fileStream = stream
+    }
+
+    getValidationErrorLog() {
+        return this.#validationErrorLog
     }
 
     async detectAvailableTypes(pathToFolder) {

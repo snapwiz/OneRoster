@@ -26,8 +26,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   const users = await entityRepository.getAll(_index.User); // const orgs = await entityRepository.getAll(Organisation)
   // const user = await entityRepository.get('user1', User)
   // const org = await user.getOrgs()
-
-  console.log(users); // fileStream = fs.createReadStream(orgFilePath, {
+  // console.log(users)
+  // fileStream = fs.createReadStream(orgFilePath, {
   //     encoding: 'UTF-8',
   // })
   // importService.setFileStream(fileStream)
@@ -47,18 +47,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   };
 
   const data = await convertData(users);
-  console.log(data);
-  const userDemographicObj = await users[0].getDemographics();
-  const userDemographicData = await convertData(userDemographicObj);
-  console.log({
-    userDemographicData
-  }); // const orgData = await convertData(orgs)
+  console.log(data); // const userDemographicObj = await users[0].getDemographics()
+  // const userDemographicData = await convertData(userDemographicObj)
+  // console.log({userDemographicData})
+  // const orgData = await convertData(orgs)
   // console.log(orgData)
-  // const terms = await entityRepository.getAll(AcademicSession)
-  // console.log(terms)
-  // const termData = await convertData(terms)
-  // console.log(termData)
-  // const classes = await entityRepository.getAll(ClassRoom)
+
+  const terms = await entityRepository.getAll(_index.AcademicSession);
+  console.log(terms);
+  const termData = await convertData(terms);
+  console.log(termData);
+  console.log(importService.getValidationErrorLog()); // const classes = await entityRepository.getAll(ClassRoom)
   // const classesData = await convertData(classes)
   // console.log(classesData)
   // const classOrg = await classes[0].getOrg()

@@ -39,6 +39,8 @@ var _pathToFolder = /*#__PURE__*/new WeakMap();
 
 var _fileStream = /*#__PURE__*/new WeakMap();
 
+var _validationErrorLog = /*#__PURE__*/new WeakMap();
+
 class ImportService {
   constructor(fileHandler) {
     _classPrivateFieldInitSpec(this, _options, {
@@ -59,6 +61,11 @@ class ImportService {
     _classPrivateFieldInitSpec(this, _fileStream, {
       writable: true,
       value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _validationErrorLog, {
+      writable: true,
+      value: ['fileName', 'rowNo', 'sourcedId', 'errorDescription']
     });
 
     _classPrivateFieldSet(this, _options, {
@@ -112,7 +119,13 @@ class ImportService {
       }
     }
 
-    let result = importer.import(header, dataLines);
+    let {
+      result,
+      validationErrors
+    } = importer.import(header, dataLines, type);
+
+    _classPrivateFieldSet(this, _validationErrorLog, [..._classPrivateFieldGet(this, _validationErrorLog), ...validationErrors]);
+
     return result;
   }
 
@@ -146,6 +159,10 @@ class ImportService {
 
   setFileStream(stream) {
     _classPrivateFieldSet(this, _fileStream, stream);
+  }
+
+  getValidationErrorLog() {
+    return _classPrivateFieldGet(this, _validationErrorLog);
   }
 
   async detectAvailableTypes(pathToFolder) {

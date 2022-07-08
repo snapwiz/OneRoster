@@ -9,6 +9,8 @@ var _lodash = _interopRequireDefault(require("lodash"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _validator = _interopRequireDefault(require("validator"));
+
 var _FormatException = _interopRequireDefault(require("./FormatException.js"));
 
 var _RequiredException = _interopRequireDefault(require("./RequiredException.js"));
@@ -84,7 +86,13 @@ class Validator {
       let value = dataRow[columnIdentifier];
 
       if (format === 'boolean') {
-        value = !!value;
+        if (_validator.default.isBoolean(value, {
+          loose: true
+        })) {
+          value = true;
+        } else {
+          value = false;
+        }
       }
 
       if (format === 'date' || format === 'datetime') {

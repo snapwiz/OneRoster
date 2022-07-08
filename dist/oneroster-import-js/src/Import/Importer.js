@@ -37,32 +37,44 @@ class Importer {
     _classPrivateFieldSet(this, _schemaValidator, schemaValidator);
   }
 
-  import(header = [], data = []) {
+  import(header = [], data = [], type) {
     let result = {};
+    let validationErrors = [];
     let count = 0;
+    let index = 0;
     data.forEach(row => {
-      var _rowWithHeader;
-
+      index++;
       let rowWithHeader = {};
 
       for (let i = 0; i < Math.min(header.length, row.length); i++) {
         rowWithHeader[header[i]] = row[i];
       }
 
-      rowWithHeader = _classPrivateFieldGet(this, _schemaValidator).validate(rowWithHeader);
+      try {
+        var _rowWithHeader;
 
-      if (!_lodash.default.isEmpty((_rowWithHeader = rowWithHeader) === null || _rowWithHeader === void 0 ? void 0 : _rowWithHeader['sourcedId'])) {
-        if (rowWithHeader['sourcedId'] in result === true) {
-          throw new _NotUniqueEntityException.default(rowWithHeader['sourcedId']);
+        rowWithHeader = _classPrivateFieldGet(this, _schemaValidator).validate(rowWithHeader);
+
+        if (!_lodash.default.isEmpty((_rowWithHeader = rowWithHeader) === null || _rowWithHeader === void 0 ? void 0 : _rowWithHeader['sourcedId'])) {
+          if (rowWithHeader['sourcedId'] in result === true) {
+            throw new _NotUniqueEntityException.default(rowWithHeader['sourcedId']);
+          }
+
+          result[rowWithHeader['sourcedId']] = rowWithHeader;
+        } else {
+          // TODO
+          result[count++] = rowWithHeader;
         }
-
-        result[rowWithHeader['sourcedId']] = rowWithHeader;
-      } else {
-        // TODO
-        result[count++] = rowWithHeader;
+      } catch (e) {
+        // validationError = [fileName, rowNo, sourcedId, errorMessage]
+        let validationError = [`${type}.csv`, index, rowWithHeader['sourcedId'], e.message || ''];
+        validationErrors.push(validationError);
       }
     });
-    return result;
+    return {
+      result,
+      validationErrors
+    };
   }
 
 }

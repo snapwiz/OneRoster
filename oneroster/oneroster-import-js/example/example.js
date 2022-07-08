@@ -28,7 +28,7 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
 
     // const user = await entityRepository.get('user1', User)
     // const org = await user.getOrgs()
-    console.log(users)
+    // console.log(users)
     // fileStream = fs.createReadStream(orgFilePath, {
     //     encoding: 'UTF-8',
     // })
@@ -47,16 +47,17 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     }
     const data = await convertData(users)
     console.log(data)
-    const userDemographicObj = await users[0].getDemographics()
-    const userDemographicData = await convertData(userDemographicObj)
-    console.log({userDemographicData})
+    // const userDemographicObj = await users[0].getDemographics()
+    // const userDemographicData = await convertData(userDemographicObj)
+    // console.log({userDemographicData})
     
     // const orgData = await convertData(orgs)
     // console.log(orgData)
-    // const terms = await entityRepository.getAll(AcademicSession)
-    // console.log(terms)
-    // const termData = await convertData(terms)
-    // console.log(termData)
+    const terms = await entityRepository.getAll(AcademicSession)
+    console.log(terms)
+    const termData = await convertData(terms)
+    console.log(termData)
+    console.log(importService.getValidationErrorLog())
     // const classes = await entityRepository.getAll(ClassRoom)
     // const classesData = await convertData(classes)
     // console.log(classesData)

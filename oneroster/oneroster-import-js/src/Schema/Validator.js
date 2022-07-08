@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
+import validator from 'validator'
 import FormatException from './FormatException.js'
 import RequiredException from './RequiredException.js'
 
@@ -33,7 +34,11 @@ export default class Validator{
             let value = dataRow[columnIdentifier]
 
             if(format === 'boolean') {
-                value = !!value
+                if (validator.isBoolean(value, {loose: true})) {
+                    value = true
+                } else {
+                    value = false
+                }
             }
 
             if(format === 'date' || format === 'datetime') {
