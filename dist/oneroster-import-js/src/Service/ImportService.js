@@ -65,7 +65,7 @@ class ImportService {
 
     _classPrivateFieldInitSpec(this, _validationErrorLog, {
       writable: true,
-      value: ['fileName', 'rowNo', 'sourcedId', 'errorDescription']
+      value: [['fileName', 'rowNo', 'sourcedId', 'errorDescription']]
     });
 
     _classPrivateFieldSet(this, _options, {

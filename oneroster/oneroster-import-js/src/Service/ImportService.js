@@ -6,7 +6,7 @@ export default class ImportService {
     #fileHandler
     #pathToFolder
     #fileStream
-    #validationErrorLog = ['fileName', 'rowNo', 'sourcedId', 'errorDescription']
+    #validationErrorLog = [['fileName', 'rowNo', 'sourcedId', 'errorDescription']]
 
     constructor(fileHandler) {
         this.#options = {

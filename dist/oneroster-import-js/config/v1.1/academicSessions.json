@@ -38,7 +38,7 @@
   {
     "columnId": "endDate",
     "required": true,
-    "format": "string",
+    "format": "date",
     "description": "End date"
   },
   {
