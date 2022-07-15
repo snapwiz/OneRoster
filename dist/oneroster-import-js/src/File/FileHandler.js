@@ -52,6 +52,8 @@ class FileHandler {
       parsedFileLines.push(data);
     }).on('end', () => {
       resolve(parsedFileLines);
+    }).on('error', err => {
+      reject(err);
     }));
   }
 

@@ -52,7 +52,6 @@ export default class Validator{
                     throw new FormatException(columnIdentifier, format, typeof value)
                 }
             }
-
             _dataRow[columnIdentifier] = value
         })
         return _dataRow

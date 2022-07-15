@@ -35,18 +35,22 @@ export default class ImportService {
         let header = []
         const {delimiter, enclosure, escape} = this.#options['csvControl']
         let index = 0
-        let lines = await this.#fileHandler.readCsvLines(fileResource, index, delimiter, enclosure, escape)
+        let lines = []
+        try {
+        lines = await this.#fileHandler.readCsvLines(fileResource, index, delimiter, enclosure, escape)
+        } catch(e) {
+            this.#validationErrorLog = [...this.#validationErrorLog, [`${type}.csv`,'' ,'', e.message]]
+        }
         if(!_.isEmpty(lines)) {
             for (const line of lines) {
-
-            index++
-            let dataLine = line.map(word => word.trim())
-            if(index === 1) {
-                header = dataLine
-                continue
+                index++
+                let dataLine = line.map(word => word.trim())
+                if(index === 1) {
+                    header = dataLine
+                    continue
+                }
+                dataLines.push(dataLine)
             }
-            dataLines.push(dataLine)
-        }
         }
         let {result, validationErrors} = importer.import(header, dataLines, type)
         this.#validationErrorLog = [...this.#validationErrorLog, ...validationErrors]

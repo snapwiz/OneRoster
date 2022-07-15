@@ -103,7 +103,13 @@ class ImportService {
     } = _classPrivateFieldGet(this, _options)['csvControl'];
 
     let index = 0;
-    let lines = await _classPrivateFieldGet(this, _fileHandler).readCsvLines(fileResource, index, delimiter, enclosure, escape);
+    let lines = [];
+
+    try {
+      lines = await _classPrivateFieldGet(this, _fileHandler).readCsvLines(fileResource, index, delimiter, enclosure, escape);
+    } catch (e) {
+      _classPrivateFieldSet(this, _validationErrorLog, [..._classPrivateFieldGet(this, _validationErrorLog), [`${type}.csv`, '', '', e.message]]);
+    }
 
     if (!_lodash.default.isEmpty(lines)) {
       for (const line of lines) {

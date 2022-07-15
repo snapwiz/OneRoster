@@ -31,6 +31,9 @@ export default class FileHandler{
         })
         .on('end', () => {
             resolve(parsedFileLines)
+        })
+        .on('error', (err) => {
+            reject(err)
         }))
     }
 }
