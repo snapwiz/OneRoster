@@ -46,17 +46,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     return result;
   };
 
-  const data = await convertData(users);
-  console.log(data); // const userDemographicObj = await users[0].getDemographics()
+  const orgs = await entityRepository.getAll(_index.Organisation);
+  const orgUsers = await orgs[0].getUsers();
+  const orgUserData = (await convertData(orgUsers)).map(doc => doc.orgSourcedIds);
+  const classes = await entityRepository.getAll(_index.ClassRoom);
+  const classesData = await convertData(classes);
+  console.log({
+    orgUserData,
+    classesData
+  }); // const userOrg = await users[0].getOrgs()
+  // const data = await convertData(userOrg)
+  // console.log({data})
+  // const data = await convertData(users)
+  // console.log(data)
+  // const userDemographicObj = await users[0].getDemographics()
   // const userDemographicData = await convertData(userDemographicObj)
   // console.log({userDemographicData})
   // const orgData = await convertData(orgs)
   // console.log(orgData)
+  // const terms = await entityRepository.getAll(AcademicSession)
+  // console.log(terms)
+  // const termData = await convertData(terms)
+  // console.log(termData)
 
-  const terms = await entityRepository.getAll(_index.AcademicSession);
-  console.log(terms);
-  const termData = await convertData(terms);
-  console.log(termData);
   console.log(importService.getValidationErrorLog()); // const classes = await entityRepository.getAll(ClassRoom)
   // const classesData = await convertData(classes)
   // console.log(classesData)

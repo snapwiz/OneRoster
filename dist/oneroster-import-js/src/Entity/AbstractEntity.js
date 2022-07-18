@@ -84,9 +84,11 @@ class AbstractEntity {
     let results = {};
 
     for (const key in entities) {
+      var _entity$index;
+
       const entity = entities[key];
 
-      if (inLineIds && _classPrivateFieldGet(this, _id).includes(entity[index])) {
+      if (inLineIds && (_entity$index = entity[index]) !== null && _entity$index !== void 0 && _entity$index.includes(_classPrivateFieldGet(this, _id))) {
         results[key] = entity;
       } else if (_classPrivateFieldGet(this, _id) === entity[index]) {
         results[key] = entity;
@@ -112,7 +114,7 @@ class AbstractEntity {
       for (const key in entities) {
         const entity = entities[key];
 
-        if (valueOfId === entity['sourcedId']) {
+        if (valueOfId.includes(entity['sourcedId'])) {
           results[key] = entity;
         }
       }

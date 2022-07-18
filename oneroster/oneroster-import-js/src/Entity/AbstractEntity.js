@@ -38,7 +38,7 @@ export default class AbstractEntity {
         let results = {}
         for (const key in entities) {
             const entity = entities[key]
-            if (inLineIds && this.#id.includes(entity[index])) {
+            if (inLineIds && entity[index]?.includes(this.#id)) {
                 results[key] = entity
             } else if(this.#id === entity[index]) {
                 results[key] = entity
@@ -59,7 +59,7 @@ export default class AbstractEntity {
             let results = {}
             for (const key in entities) {
                 const entity = entities[key]
-                if (valueOfId === entity['sourcedId']) {
+                if (valueOfId.includes(entity['sourcedId'])) {
                     results[key] = entity
                 }
             }

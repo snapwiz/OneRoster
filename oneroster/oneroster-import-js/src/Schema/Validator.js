@@ -52,6 +52,9 @@ export default class Validator{
                     throw new FormatException(columnIdentifier, format, typeof value)
                 }
             }
+            if (['grades', 'termSourcedIds', 'subjects', 'orgSourcedIds'].includes(columnIdentifier)) {
+                value = value.split('|').map((_val) => _val.trim())
+            }
             _dataRow[columnIdentifier] = value
         })
         return _dataRow
