@@ -59,7 +59,7 @@ class CsvStorage {
 
         const fileName = (_file$path$split = file.path.split('/')) === null || _file$path$split === void 0 ? void 0 : _file$path$split[1];
 
-        if (isEmpty(fileName)) {
+        if (_lodash.default.isEmpty(fileName)) {
           continue;
         }
 

@@ -33,7 +33,7 @@ export default class CsvStorage {
             const directory = this.#importService.getFileStream()
             for await (const file of directory.files) {
                 const fileName = file.path.split('/')?.[1]
-                if (isEmpty(fileName)) {
+                if (_.isEmpty(fileName)) {
                   continue
                 }
                 const typeOfEntity = fileName?.split('.')?.[0]
