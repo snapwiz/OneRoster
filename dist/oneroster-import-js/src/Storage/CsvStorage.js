@@ -70,7 +70,7 @@ class CsvStorage {
         }
 
         const file_stream = await file.stream();
-        if (file_stream) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);else _classPrivateFieldGet(this, _imports)[typeOfEntity] = {};
+        if (file_stream) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(file_stream, typeOfEntity);else _classPrivateFieldGet(this, _imports)[typeOfEntity] = {};
       }
     } else {
       for (const typeOfEntity of allowedEntityTypes) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);

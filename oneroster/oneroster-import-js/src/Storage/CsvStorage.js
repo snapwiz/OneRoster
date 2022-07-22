@@ -43,7 +43,7 @@ export default class CsvStorage {
                 const file_stream = await file.stream()
                     
                 if (file_stream)
-                    this.#imports[typeOfEntity] = await this.#importService.import(this.#importService.getFileStream(), typeOfEntity)
+                    this.#imports[typeOfEntity] = await this.#importService.import(file_stream, typeOfEntity)
                 else 
                     this.#imports[typeOfEntity] = {}
             }
