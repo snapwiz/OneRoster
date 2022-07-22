@@ -52,6 +52,10 @@ class EntityRepository {
     return _EntityFactory.default.createCollection(entityName, _classPrivateFieldGet(this, _storage), _classPrivateFieldGet(this, _relationConfig));
   }
 
+  async getAllEntities() {
+    return _EntityFactory.default.createCollections(_classPrivateFieldGet(this, _storage), _classPrivateFieldGet(this, _relationConfig));
+  }
+
 }
 
 exports.default = EntityRepository;

@@ -27,6 +27,9 @@ export default class ImportService {
         let fileResource
         if (this.#pathToFolder) {
             fileResource = await this.#fileHandler.open(filePathOrStream)
+            if (!fileResource) {
+                return {}
+            } 
         } else {
             fileResource = filePathOrStream
         }

@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   const storage = new _index.CsvStorage(importService);
   const relationConfig = new _index.RelationConfigFactory(fileHandler).create();
   const entityRepository = new _index.EntityRepository(storage, relationConfig); // const orgs = await entityRepository.getAll(Organisation)
-
-  const users = await entityRepository.getAll(_index.User); // const orgs = await entityRepository.getAll(Organisation)
+  // const users = await entityRepository.getAll(User)
+  // const orgs = await entityRepository.getAll(Organisation)
   // const user = await entityRepository.get('user1', User)
   // const org = await user.getOrgs()
   // console.log(users)
@@ -46,15 +46,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     return result;
   };
 
-  const orgs = await entityRepository.getAll(_index.Organisation);
-  const orgUsers = await orgs[0].getUsers();
-  const orgUserData = (await convertData(orgUsers)).map(doc => doc.orgSourcedIds);
-  const classes = await entityRepository.getAll(_index.ClassRoom);
-  const classesData = await convertData(classes);
-  console.log({
-    orgUserData,
-    classesData
-  }); // const userOrg = await users[0].getOrgs()
+  const allEntities = await entityRepository.getAllEntities();
+  console.log(allEntities); // const orgs = await entityRepository.getAll(Organisation)
+  // const orgUsers = await orgs[0].getUsers()
+  // const orgUserData = (await convertData(orgUsers)).map(doc => doc.orgSourcedIds)
+  // const classes = await entityRepository.getAll(ClassRoom)
+  // const classesData = await convertData(classes)
+  // console.log({orgUserData, classesData})
+  // const userOrg = await users[0].getOrgs()
   // const data = await convertData(userOrg)
   // console.log({data})
   // const data = await convertData(users)

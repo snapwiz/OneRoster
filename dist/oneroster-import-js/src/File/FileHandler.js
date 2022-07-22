@@ -20,20 +20,22 @@ class FileHandler {
     try {
       await _fs.default.promises.access(filePath, _fs.default.constants.R_OK);
       isFileReadable = true;
-    } catch (e) {}
 
-    const filePathExists = _fs.default.existsSync(filePath);
+      const filePathExists = _fs.default.existsSync(filePath);
 
-    const fileHandler = _fs.default.createReadStream(filePath, {
-      flag: mode,
-      encoding: 'UTF-8'
-    });
+      const fileHandler = _fs.default.createReadStream(filePath, {
+        flag: mode,
+        encoding: 'UTF-8'
+      });
 
-    if (!filePathExists || !isFileReadable || !fileHandler) {
-      throw new Error('File to import cannot be loaded.');
+      if (!filePathExists || !isFileReadable || !fileHandler) {
+        throw new Error('File to import cannot be loaded.');
+      }
+
+      return fileHandler;
+    } catch (e) {
+      return null;
     }
-
-    return fileHandler;
   }
 
   getContents(fileName) {

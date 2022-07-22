@@ -89,6 +89,10 @@ class ImportService {
 
     if (_classPrivateFieldGet(this, _pathToFolder)) {
       fileResource = await _classPrivateFieldGet(this, _fileHandler).open(filePathOrStream);
+
+      if (!fileResource) {
+        return {};
+      }
     } else {
       fileResource = filePathOrStream;
     }

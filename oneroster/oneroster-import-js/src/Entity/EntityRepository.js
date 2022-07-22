@@ -20,4 +20,9 @@ export default class EntityRepository
     {
         return EntityFactory.createCollection(entityName, this.#storage, this.#relationConfig)
     }
+
+    async getAllEntities()
+    {
+        return EntityFactory.createCollections(this.#storage, this.#relationConfig)
+    }
 }

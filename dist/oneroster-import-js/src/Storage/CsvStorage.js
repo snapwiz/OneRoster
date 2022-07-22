@@ -42,6 +42,43 @@ class CsvStorage {
     _classPrivateFieldSet(this, _importService, importService);
   }
 
+  async findAllEntity() {
+    const allowedEntityTypes = ['academicSessions', 'classes', 'courses', 'demographics', 'enrollments', 'orgs', 'users', 'categories', 'classResources', 'courseResources', 'lineItems', 'results', 'resources'];
+
+    if (!_lodash.default.isEmpty(_classPrivateFieldGet(this, _imports))) {
+      return _classPrivateFieldGet(this, _imports);
+    }
+
+    let pathToFolder = _classPrivateFieldGet(this, _importService).getPathToFolder();
+
+    if (_lodash.default.isEmpty(pathToFolder)) {
+      const directory = _classPrivateFieldGet(this, _importService).getFileStream();
+
+      for await (const file of directory.files) {
+        var _file$path$split, _fileName$split;
+
+        const fileName = (_file$path$split = file.path.split('/')) === null || _file$path$split === void 0 ? void 0 : _file$path$split[1];
+
+        if (isEmpty(fileName)) {
+          continue;
+        }
+
+        const typeOfEntity = fileName === null || fileName === void 0 ? void 0 : (_fileName$split = fileName.split('.')) === null || _fileName$split === void 0 ? void 0 : _fileName$split[0];
+
+        if (!allowedEntityTypes.includes(typeOfEntity)) {
+          continue;
+        }
+
+        const file_stream = await file.stream();
+        if (file_stream) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);else _classPrivateFieldGet(this, _imports)[typeOfEntity] = {};
+      }
+    } else {
+      for (const typeOfEntity of allowedEntityTypes) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);
+    }
+
+    return _classPrivateFieldGet(this, _imports);
+  }
+
   async findByType(typeOfEntity) {
     if (!_lodash.default.isEmpty(_classPrivateFieldGet(this, _imports)[typeOfEntity])) {
       return _classPrivateFieldGet(this, _imports)[typeOfEntity];
@@ -50,7 +87,28 @@ class CsvStorage {
     let pathToFolder = _classPrivateFieldGet(this, _importService).getPathToFolder();
 
     if (_lodash.default.isEmpty(pathToFolder)) {
-      _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);
+      const directory = _classPrivateFieldGet(this, _importService).getFileStream();
+
+      let file_stream;
+
+      for await (const file of directory.files) {
+        var _file$path$split2, _fileName$split2;
+
+        const fileName = (_file$path$split2 = file.path.split('/')) === null || _file$path$split2 === void 0 ? void 0 : _file$path$split2[1];
+
+        if (isEmpty(fileName)) {
+          continue;
+        }
+
+        const entityType = fileName === null || fileName === void 0 ? void 0 : (_fileName$split2 = fileName.split('.')) === null || _fileName$split2 === void 0 ? void 0 : _fileName$split2[0];
+
+        if (entityType === typeOfEntity) {
+          file_stream = await file.stream();
+          break;
+        }
+      }
+
+      if (file_stream) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);else _classPrivateFieldGet(this, _imports)[typeOfEntity] = {};
     } else {
       _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);
     }
@@ -67,7 +125,28 @@ class CsvStorage {
       let pathToFolder = _classPrivateFieldGet(this, _importService).getPathToFolder();
 
       if (_lodash.default.isEmpty(pathToFolder)) {
-        _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);
+        const directory = _classPrivateFieldGet(this, _importService).getFileStream();
+
+        let file_stream;
+
+        for await (const file of directory.files) {
+          var _file$path$split3, _fileName$split3;
+
+          const fileName = (_file$path$split3 = file.path.split('/')) === null || _file$path$split3 === void 0 ? void 0 : _file$path$split3[1];
+
+          if (isEmpty(fileName)) {
+            continue;
+          }
+
+          const entityType = fileName === null || fileName === void 0 ? void 0 : (_fileName$split3 = fileName.split('.')) === null || _fileName$split3 === void 0 ? void 0 : _fileName$split3[0];
+
+          if (entityType === typeOfEntity) {
+            file_stream = await file.stream();
+            break;
+          }
+        }
+
+        if (file_stream) _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(_classPrivateFieldGet(this, _importService).getFileStream(), typeOfEntity);else _classPrivateFieldGet(this, _imports)[typeOfEntity] = {};
       } else {
         _classPrivateFieldGet(this, _imports)[typeOfEntity] = await _classPrivateFieldGet(this, _importService).import(`${pathToFolder}${typeOfEntity}.csv`, typeOfEntity);
       }
