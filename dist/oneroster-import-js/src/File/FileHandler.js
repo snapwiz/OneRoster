@@ -47,7 +47,7 @@ class FileHandler {
   async readCsvLines(handle, length = 0, delimiter = ',', enclosure = '"', escape = '\\') {
     const parsedFileLines = [];
     return new Promise((resolve, reject) => handle.pipe((0, _csvParse.parse)({
-      delimiter: ",",
+      delimiter: [',', '"'],
       escape,
       enclosure
     })).on('data', data => {

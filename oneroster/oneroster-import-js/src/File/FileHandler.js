@@ -29,7 +29,7 @@ export default class FileHandler{
 
     async readCsvLines(handle, length = 0, delimiter = ',', enclosure = '"', escape = '\\') {
         const parsedFileLines = []
-        return new Promise((resolve, reject) => handle.pipe(parse({ delimiter: ",", escape, enclosure})).on('data', (data) => {
+        return new Promise((resolve, reject) => handle.pipe(parse({ delimiter: [',', '"'], escape, enclosure})).on('data', (data) => {
             parsedFileLines.push(data)
         })
         .on('end', () => {

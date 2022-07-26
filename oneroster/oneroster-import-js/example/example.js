@@ -36,17 +36,19 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     // const orgs = await entityRepository.getAll(Organisation)
     // console.log(orgs)
 
-    const convertData = async (entityObjects) => {
-        let result = []
-        for(const key in entityObjects) {
-            const entityObject = entityObjects[key]
-            const data = await entityObject.getData()
-            result.push(data)
-        }
-        return result
-    }
-    const allEntities = await entityRepository.getAllEntities()
-    console.log(allEntities)
+    // const convertData = async (entityObjects) => {
+    //     let result = []
+    //     for(const key in entityObjects) {
+    //         const entityObject = entityObjects[key]
+    //         const data = await entityObject.getData()
+    //         result.push(data)
+    //     }
+    //     return result
+    // }
+    // const allEntities = await entityRepository.getAllEntities()
+    // console.log(allEntities.classes)
+    // const arr = allEntities.classes.map(o => o.grades)
+    // console.log(arr)
     // const orgs = await entityRepository.getAll(Organisation)
     // const orgUsers = await orgs[0].getUsers()
     // const orgUserData = (await convertData(orgUsers)).map(doc => doc.orgSourcedIds)
@@ -68,7 +70,7 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
     // console.log(terms)
     // const termData = await convertData(terms)
     // console.log(termData)
-    console.log(importService.getValidationErrorLog())
+    // console.log(importService.getValidationErrorLog())
     // const classes = await entityRepository.getAll(ClassRoom)
     // const classesData = await convertData(classes)
     // console.log(classesData)

@@ -109,7 +109,7 @@ class Validator {
       }
 
       if (['grades', 'termSourcedIds', 'subjects', 'orgSourcedIds'].includes(columnIdentifier)) {
-        value = value.split('|').map(_val => _val.trim());
+        value = value.split(',').map(_val => _val.trim());
       }
 
       _dataRow[columnIdentifier] = value;
