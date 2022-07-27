@@ -18,7 +18,7 @@
     "description": "The date that this record was last modified. (FORMAT IS YYYY-MM-DD)"
   },
   {
-    "columnId": "birthdate",
+    "columnId": "birthDate",
     "required": false,
     "format": "date",
     "description": "Student’s date of birth"
@@ -26,7 +26,7 @@
   {
     "columnId": "sex",
     "required": false,
-    "format": "boolean",
+    "format": "String",
     "description": "“Female” | “Male”"
   },
   {

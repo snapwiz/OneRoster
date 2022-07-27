@@ -13,7 +13,7 @@
   },
   {
     "columnId": "dateLastModified",
-    "required": true,
+    "required": false,
     "format": "datetime",
     "description": ""
   },
@@ -38,7 +38,7 @@
   {
     "columnId": "score",
     "required": true,
-    "format": "string",
+    "format": "float",
     "description": ""
   },
   {

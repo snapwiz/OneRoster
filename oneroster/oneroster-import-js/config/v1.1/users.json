@@ -26,7 +26,7 @@
   {
     "columnId": "orgSourcedIds",
     "required": true,
-    "format": "string",
+    "format": "list",
     "description": "SourcedIds of the Organizations to which this user belongs. If multiple Ids are required then use double quotes and separate with commas.(Note in most in cases, it is expected that users will belong to a single school)."
   },
   {
@@ -98,7 +98,7 @@
   {
     "columnId": "grades",
     "required": false,
-    "format": "string",
+    "format": "list",
     "description": "Grade(s) for which a user with role 'student' is enrolled. The permitted vocabulary is from CEDS (Version 5) for the 'Entry Grade Level' element "
   },
   {

@@ -32,7 +32,7 @@
   {
     "columnId": "roles",
     "required": false,
-    "format": "string",
+    "format": "list",
     "description": ""
   },
   {

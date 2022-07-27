@@ -50,7 +50,7 @@
   {
     "columnId": "subjects",
     "required": false,
-    "format": "string",
+    "format": "list",
     "description": "Subject name(s). If more than one subject is needed, use double quotes, and separate with commas (per RFC 4180):Examples:“chemistry, physics”physics“music, drama, poetry”"
   },
   {

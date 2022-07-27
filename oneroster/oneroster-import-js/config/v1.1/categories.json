@@ -13,7 +13,7 @@
   },
   {
     "columnId": "dateLastModified",
-    "required": true,
+    "required": false,
     "format": "datetime",
     "description": "The date that this record was last modified"
   },

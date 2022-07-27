@@ -50,7 +50,7 @@
   {
     "columnId": "schoolYear",
     "required": true,
-    "format": "string",
+    "format": "year",
     "description": "The school year for which the academic session contributes. This year should be that in which the school year ends.(Format is: YYYY)."
   }
 ]

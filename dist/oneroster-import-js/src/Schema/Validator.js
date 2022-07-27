@@ -96,20 +96,22 @@ class Validator {
       }
 
       if (format === 'date' || format === 'datetime') {
-        let dateFormat = format === 'datetime' ? _classPrivateFieldGet(this, _DATE_FORMAT) : _classPrivateFieldGet(this, _DATE_TIME_FORMAT);
+        let dateFormat = format === 'date' ? _classPrivateFieldGet(this, _DATE_FORMAT) : _classPrivateFieldGet(this, _DATE_TIME_FORMAT);
         value = (0, _moment.default)(new Date(value)).format(dateFormat);
 
         if (value === 'Invalid date' && this.isFieldRequired(columnIdentifier)) {
+          throw new _FormatException.default(columnIdentifier, format, typeof value);
+        }
+      } else if (format === 'list') {
+        value = value.split(',').map(_val => _val.trim());
+      } else if (format === 'float') {
+        if (isNaN(value) && this.isFieldRequired(columnIdentifier)) {
           throw new _FormatException.default(columnIdentifier, format, typeof value);
         }
       } else {
         if (typeof value !== format && this.isFieldRequired(columnIdentifier)) {
           throw new _FormatException.default(columnIdentifier, format, typeof value);
         }
-      }
-
-      if (['grades', 'termSourcedIds', 'subjects', 'orgSourcedIds'].includes(columnIdentifier)) {
-        value = value.split(',').map(_val => _val.trim());
       }
 
       _dataRow[columnIdentifier] = value;

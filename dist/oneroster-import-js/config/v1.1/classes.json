@@ -62,7 +62,7 @@
   {
     "columnId": "termSourcedIds",
     "required": true,
-    "format": "string",
+    "format": "list",
     "description": "SourcedId of the academicSessions(s) in which the class is taught."
   },
   {
