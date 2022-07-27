@@ -47,7 +47,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   };
 
   const allEntities = await entityRepository.getAllEntities();
-  console.log(allEntities.demographics); // const arr = allEntities.classes.map(o => o.grades)
+  console.log(allEntities.academicSessions); // const arr = allEntities.classes.map(o => o.grades)
   // console.log(arr)
   // const orgs = await entityRepository.getAll(Organisation)
   // const orgUsers = await orgs[0].getUsers()

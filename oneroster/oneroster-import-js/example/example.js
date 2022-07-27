@@ -46,7 +46,7 @@ import { FileHandler, ImportService, CsvStorage, RelationConfigFactory, EntityRe
         return result
     }
     const allEntities = await entityRepository.getAllEntities()
-    console.log(allEntities.demographics)
+    console.log(allEntities.academicSessions)
     // const arr = allEntities.classes.map(o => o.grades)
     // console.log(arr)
     // const orgs = await entityRepository.getAll(Organisation)

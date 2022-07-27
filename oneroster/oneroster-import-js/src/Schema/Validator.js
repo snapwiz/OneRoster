@@ -53,6 +53,12 @@ export default class Validator{
                 if(isNaN(value) && this.isFieldRequired(columnIdentifier)) {
                     throw new FormatException(columnIdentifier, format, typeof value)
                 }
+            } else if(format === 'year') {
+                const date = new Date(value)
+                if(date === 'Invalid Date') {
+                    throw new FormatException(columnIdentifier, format, typeof value)
+                }
+                value = date.getFullYear().toString()
             } else {
                 if(typeof value !== format && this.isFieldRequired(columnIdentifier)) {
                     throw new FormatException(columnIdentifier, format, typeof value)
